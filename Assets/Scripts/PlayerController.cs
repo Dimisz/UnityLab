@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 15;
+    private float speed = 200;
     private float zBound = 12;
     private bool onGround;
     private Rigidbody rbPlayer;
@@ -28,6 +28,20 @@ public class PlayerController : MonoBehaviour
         {
             onGround = true;
         }
+
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Coollided with an enemy");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Powerup"))
+        {
+            Debug.Log("Got powerup");
+            Destroy(other.gameObject);
+        }
     }
 
     // moves the player (WASD & jumping) basing on the user input
@@ -44,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && onGround)
         {
-            rbPlayer.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            rbPlayer.AddForce(Vector3.up * 200, ForceMode.Impulse);
             onGround = false;
         }
     }
@@ -61,4 +75,6 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, zBound);
         }
     }
+
+ 
 }
