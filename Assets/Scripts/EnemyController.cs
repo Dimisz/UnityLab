@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveDown : MonoBehaviour
+public class EnemyController : MonoBehaviour
 {
 
     public float speed;
+    private float zDestroy = -15;
     private Rigidbody enemyRb;
     // Start is called before the first frame update
     void Start()
@@ -17,5 +18,10 @@ public class MoveDown : MonoBehaviour
     void Update()
     {
         enemyRb.AddForce(Vector3.forward * -speed * Time.deltaTime);
+
+        if(transform.position.z < zDestroy)
+        {
+            Destroy(gameObject);
+        }
     }
 }
